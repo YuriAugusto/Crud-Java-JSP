@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class UsuarioDao {
 	
+	//cria conexão
 	public static Connection getConnection() {
 		Connection con = null;		
 		try {
@@ -21,6 +22,26 @@ public class UsuarioDao {
 			System.out.println(e);
 		}
 		return con;
+	}
+	
+	//cadastra usuário
+	public static int salvarUsuario(Usuario u) {
+		int status = 0;
+		
+		try {
+			Connection con = getConnection();//os argumentos da query representam as colunas da table no banco
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement("INSERT INTO usuario "
+					+ "(nome, password, email, sexo, pais) VALUES(?,?,?,?,?)");
+			ps.setString(1, u.getNome());//insere os valores nos parâmetros da query
+			ps.setString(2, u.getPassword());
+			ps.setString(3, u.getEmail());
+			ps.setString(4, u.getSexo());
+			ps.setString(5, u.getPais());
+			status = ps.executeUpdate();//executeUpdate() o método retorna 1 se for inserido e 0 caso ocorra falha
+		} catch (Exception e) {
+			System.out.println(e);
+		}		
+		return status;
 	}
 	
 	//retorna usuário por id
@@ -65,7 +86,6 @@ public class UsuarioDao {
 			ps.setString(5, u.getPais());
 			ps.setInt(6, u.getId());
 			status = ps.executeUpdate();//executeUpdate() o método retorna 1 se for atualizado e 0 caso ocorra falha
-			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -93,8 +113,7 @@ public class UsuarioDao {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-		}
-		
+		}		
 		return list;
 	}
 
