@@ -38,7 +38,7 @@
 				<td>${usuario.getPais()}</td>
 				<td><a href="editform.jsp?id=${usuario.getId()}">Editar</a></td>
 				<%-- Aqui eu envio o id do usuário --%>
-				<td><a href="#">Excluir</a></td>
+				<td><a href="deleteusuario.jsp?id=${usuario.getId()}">Excluir</a></td>
 			</tr>
 		</c:forEach>
 	</table>

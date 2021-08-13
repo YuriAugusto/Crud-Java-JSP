@@ -24,6 +24,22 @@ public class UsuarioDao {
 		return con;
 	}
 	
+	//deleta usuário
+	public static int deletarUsuario(Usuario u) {
+		int status = 0;
+		
+		try {
+			Connection con = getConnection();
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement("DELETE FROM usuario WHERE id=?");
+			ps.setInt(1, u.getId());
+			status = ps.executeUpdate();//executeUpdate() o método retorna 1 se o usuário for deletado e 0 caso ocorra falha
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return status;
+	}
+	
 	//cadastra usuário
 	public static int salvarUsuario(Usuario u) {
 		int status = 0;
@@ -40,7 +56,8 @@ public class UsuarioDao {
 			status = ps.executeUpdate();//executeUpdate() o método retorna 1 se for inserido e 0 caso ocorra falha
 		} catch (Exception e) {
 			System.out.println(e);
-		}		
+		}	
+		
 		return status;
 	}
 	
@@ -67,6 +84,7 @@ public class UsuarioDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		
 		return usuario;
 	}
 	
@@ -89,6 +107,7 @@ public class UsuarioDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		
 		return status;
 	}
 	
@@ -113,7 +132,8 @@ public class UsuarioDao {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-		}		
+		}	
+		
 		return list;
 	}
 
